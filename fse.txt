@@ -13,25 +13,35 @@ BEGIN
 	insert into rates values (pid,p-(p*d/100));
 END $$
 DELIMITER ;
-create table categories(category_id int, c_name varchar(20) NOT NULL,c_desc varchar(100));
+create table stores(store_id int, s_name varchar(20) NOT NULL,address varchar(1000),email varchar(100) UNIQUE);
+alter table stores add constraint stores_pk primary key (store_id);
+alter table stores add constraint email_check check (email like '%@%.%');
+alter table stores modify store_id int AUTO_INCREMENT;
+create table categories(category_id int, c_name varchar(20) NOT NULL UNIQUE,c_desc varchar(100));
 alter table categories add constraint categories_pk primary key (category_id);
 alter table categories modify category_id int AUTO_INCREMENT;
-create table products(p_id int, p_name varchar(100) NOT NULL,p_desc varchar(1000),c_id int NOT NULL,price float NOT NULL,discount int);
+create table products(p_id int, p_name varchar(100) NOT NULL,p_desc varchar(1000),c_id int NOT NULL,price float NOT NULL);
 alter table products add constraint products_pk primary key (p_id);
-alter table products add constraint check_discount check(discount<100 AND discount>-1);
+alter table products add constraint products_fk foreign key (c_id) references categories (category_id);
+alter table products add constraint price_check check (price>0);
 alter table products modify p_id int AUTO_INCREMENT;
+create table items(item_id int,p_id int NOT NULL,store_id int NOT NULL,discount int NOT NULL);
+alter table items add constraint items_pk primary key (item_id);
+alter table items add constraint items_fk1 foreign key (store_id) references stores (store_id);
+alter table items add constraint items_fk2 foreign key (p_id) references products (p_id);
+alter table items add constraint check_discount check(discount<100 AND discount>-1);
+alter table items modify item_id int AUTO_INCREMENT;
 DELIMITER $$
-CREATE TRIGGER product_added
+CREATE TRIGGER item_added
 AFTER INSERT
-ON products FOR EACH ROW
+ON items FOR EACH ROW
 BEGIN
-    call rate_add(new.p_id,new.price,new.discount);
+    call rate_add(new.item_id,(select price from products as p where p.p_id = new.p_id),new.discount);
 END$$
 DELIMITER ;
-create table rates(p_id int NOT NULL, cost float NOT NULL);
-alter table rates add constraint rates_pk primary key (p_id);
-/*alter table rates add constraint rates_fk foreign key (p_id) references products (p_id);*/
-alter table rates modify p_id int AUTO_INCREMENT; 
+create table rates(item_id int NOT NULL, cost float NOT NULL);
+alter table rates add constraint rates_pk primary key (item_id);
+alter table rates modify item_id int AUTO_INCREMENT; 
 create table users(user_id int, user_name varchar(20), passphrase varchar(20) NOT NULL, permission char(5) NOT NULL DEFAULT 'r');
 alter table users add constraint users_pk primary key (user_id);
 alter table users modify user_id int AUTO_INCREMENT;
@@ -40,12 +50,16 @@ insert into categories (c_name,c_desc) values ('dairy','your pick for the mily c
 insert into categories (c_name,c_desc) values ('pharmacy','your desired and trusted parhmacies');
 insert into categories (c_name,c_desc) values ('meat','fresh chopped meat straight from the butcher');
 insert into categories (c_name,c_desc) values ('misc','the everyday items for your everyday usage');
-insert into products (p_name,p_desc,c_id,price,discount) values ('potatoes','fresh red and brown long potatoes',1,10.2,10);
-insert into products (p_name,p_desc,c_id,price,discount) values ('milk','rich and nutritious milk',2,20.2,10);
-insert into products (p_name,p_desc,c_id,price,discount) values ('chicken meat','chicken meat of chickens grown on green farm',4,192.5,15);
+insert into products (p_name,p_desc,c_id,price) values ('potatoes','fresh red and brown long potatoes',1,10.2);
+insert into products (p_name,p_desc,c_id,price) values ('milk','rich and nutritious milk',2,20.2);
+insert into products (p_name,p_desc,c_id,price) values ('chicken meat','chicken meat of chickens grown on green farm',4,192.5);
+insert into stores(s_name,address,email) values ('ghaleez','ghalazat ka putla','ghalazat@hehe.com');
+insert into stores(s_name,address,email) values ('khaadi','khaadi headquarters main','khaadi@gmail.com');
+insert into stores(s_name,address,email) values ('fast','main fast universtiy karachi','fast@nu.edu.pk');
 insert into users (user_name,passphrase,permission) values ('admin','admin','rw');
 insert into users (user_name,passphrase) values ('arham','arham');
 select * from users;
 select * from products;
 select * from rates;
 select * from categories;
+select * from items;
