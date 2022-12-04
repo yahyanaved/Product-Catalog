@@ -1,6 +1,6 @@
-drop database fse;
-create database fse;
-use fse;
+drop database store-catalog;
+create database store-catalog;
+use store-catalog;
 DELIMITER $$
 CREATE PROCEDURE rate_add(
    pid int,
