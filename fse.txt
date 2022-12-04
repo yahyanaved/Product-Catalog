@@ -56,6 +56,13 @@ insert into products (p_name,p_desc,c_id,price) values ('chicken meat','chicken 
 insert into stores(s_name,address,email) values ('ghaleez','ghalazat ka putla','ghalazat@hehe.com');
 insert into stores(s_name,address,email) values ('khaadi','khaadi headquarters main','khaadi@gmail.com');
 insert into stores(s_name,address,email) values ('fast','main fast universtiy karachi','fast@nu.edu.pk');
+insert into items(p_id,store_id,discount) values (1,1,7);
+insert into items(p_id,store_id,discount) values (2,1,9);
+insert into items(p_id,store_id,discount) values (3,1,6);
+insert into items(p_id,store_id,discount) values (1,2,10);
+insert into items(p_id,store_id,discount) values (2,2,5);
+insert into items(p_id,store_id,discount) values (3,3,6);
+insert into items(p_id,store_id,discount) values (2,3,12);
 insert into users (user_name,passphrase,permission) values ('admin','admin','rw');
 insert into users (user_name,passphrase) values ('arham','arham');
 select * from users;
