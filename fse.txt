@@ -1,0 +1,51 @@
+drop database fse;
+create database fse;
+use fse;
+DELIMITER $$
+CREATE PROCEDURE rate_add(
+   pid int,
+    p float,
+    d int
+)
+READS SQL DATA
+DETERMINISTIC
+BEGIN
+	insert into rates values (pid,p-(p*d/100));
+END $$
+DELIMITER ;
+create table categories(category_id int, c_name varchar(20) NOT NULL,c_desc varchar(100));
+alter table categories add constraint categories_pk primary key (category_id);
+alter table categories modify category_id int AUTO_INCREMENT;
+create table products(p_id int, p_name varchar(100) NOT NULL,p_desc varchar(1000),c_id int NOT NULL,price float NOT NULL,discount int);
+alter table products add constraint products_pk primary key (p_id);
+alter table products add constraint check_discount check(discount<100 AND discount>-1);
+alter table products modify p_id int AUTO_INCREMENT;
+DELIMITER $$
+CREATE TRIGGER product_added
+AFTER INSERT
+ON products FOR EACH ROW
+BEGIN
+    call rate_add(new.p_id,new.price,new.discount);
+END$$
+DELIMITER ;
+create table rates(p_id int NOT NULL, cost float NOT NULL);
+alter table rates add constraint rates_pk primary key (p_id);
+/*alter table rates add constraint rates_fk foreign key (p_id) references products (p_id);*/
+alter table rates modify p_id int AUTO_INCREMENT; 
+create table users(user_id int, user_name varchar(20), passphrase varchar(20) NOT NULL, permission char(5) NOT NULL DEFAULT 'r');
+alter table users add constraint users_pk primary key (user_id);
+alter table users modify user_id int AUTO_INCREMENT;
+insert into categories (c_name,c_desc) values ('produce','freshly harvested fruits and vegetables');
+insert into categories (c_name,c_desc) values ('dairy','your pick for the mily cow goodies');
+insert into categories (c_name,c_desc) values ('pharmacy','your desired and trusted parhmacies');
+insert into categories (c_name,c_desc) values ('meat','fresh chopped meat straight from the butcher');
+insert into categories (c_name,c_desc) values ('misc','the everyday items for your everyday usage');
+insert into products (p_name,p_desc,c_id,price,discount) values ('potatoes','fresh red and brown long potatoes',1,10.2,10);
+insert into products (p_name,p_desc,c_id,price,discount) values ('milk','rich and nutritious milk',2,20.2,10);
+insert into products (p_name,p_desc,c_id,price,discount) values ('chicken meat','chicken meat of chickens grown on green farm',4,192.5,15);
+insert into users (user_name,passphrase,permission) values ('admin','admin','rw');
+insert into users (user_name,passphrase) values ('arham','arham');
+select * from users;
+select * from products;
+select * from rates;
+select * from categories;
