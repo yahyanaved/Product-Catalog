@@ -151,15 +151,16 @@ require_once "config.php";
                         </div>
                         <div class="row px-xl-5 pb-3">
                             <?php
-                        $categoryid = $_GET['categoryid'];
-                        $sql = "SELECT products_id,p_name, p_desc, c_name, sc_name, b_name, price,stock 
-                            from products p 
-                            inner join brands b on b.brand_id = p.brand_id 
-                            left join subcategories s on s.sc_id = p.sc_id
-                            left join categories c on s.category_id = c.category_id where c.category_id = $categoryid";
-                        $values = mysqli_query($link, $sql);
-                        while ($row = mysqli_fetch_array($values)) {
-                        ?>
+                            $categoryid = $_GET['categoryid'];
+                            $sql = "SELECT i.p_id , p_name, p_desc,c_name,price ,discount, s_name
+                            from items i   
+                            inner join products p on p.p_id = i.p_id                       
+                            left join categories c on p.c_id = c.category_id 
+                            left join stores s on s.store_id = i.store_id
+                            where c.category_id = $categoryid";
+                            $values = mysqli_query($link, $sql);
+                            while ($row = mysqli_fetch_array($values)) {
+                            ?>
                             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                                 <div class="card product-item border-0 mb-4">
                                     <div
@@ -171,11 +172,15 @@ require_once "config.php";
                                             <?php echo $row['p_name'] ?>
                                         </h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6>$123.00</h6>
+                                            <h6><?php echo ((1-($row['discount']/100)) * $row['price']);?></h6>
                                             <h6 class="text-muted ml-2"><del>
                                                     <?php echo $row['price'] ?>
                                                 </del></h6>
                                         </div>
+                                        <h6>
+                                            <?php echo $row['p_desc']; ?>
+                                        </h6>
+                                        <h6 style= "color : #D19C97; font-weight: bolder; font-size: large"> Sold by : <?php echo $row['s_name']; ?></h6>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
                                         <a href="" class="btn btn-sm text-dark p-0"><i
