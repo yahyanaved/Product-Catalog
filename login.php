@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
 }
 if($username==$data && $password == $data2 && $data3 == 'rw')
 {
-    header('location:admin.php');
+    header('location:productadmin.php');
 }
 else if($username==$data && $password == $data2 && $data3 == 'r')
 {

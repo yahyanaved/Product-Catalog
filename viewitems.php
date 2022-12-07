@@ -33,10 +33,11 @@
 </head>
 
 <body>
+
     <div class="text-inverse-secondary bg-secondary">
         <h1 id='dashboard'>Admin Dashboard</h1>
         <div style="padding-left: 10%;">
-            <a href="viewitems.php" class="btn btn-success"><i class=""></i> View Listed Items</a>
+            <a href="productadmin.php" class="btn btn-success"><i class=""></i> View Products</a>
         </div>
     </div>
     <div class="wrapper">
@@ -44,15 +45,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <h2 class="pull-left">Categories</h2>
-                        <a href="productcreate.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add
-                            Product</a>
                     </div>
                     <?php
                     // Include config file
                     require_once "config.php";
                     $sql = "SELECT *
-                    from products p 
+                    from items i
+                    inner join products p on i.p_id = p.p_id
                     left join categories c on c.category_id = p.c_id";
                     $result = mysqli_query($link, $sql);
                     // Attempt select query execution
@@ -65,15 +64,19 @@
                             <tr>
                                 ";
                     echo "
+                                <th>Item ID</th>";
+                    echo "
                                 <th>Product Name</th>";
                     echo "
                                 <th>Product Description</th>";
                     echo "
-                                <th>Sub Category Name</th>";
-                    echo "
-                                <th>Brand Name </th>";
+                                <th>Category Name</th>";
                     echo "
                                 <th>Price</th>";
+                    echo "
+                                <th>Stock</th>";
+                    echo "
+                                <th>Discount</th>";
                     echo "
                             </tr>";
                     echo "
@@ -86,19 +89,23 @@
                             <tr>
                                 ";
                         echo "
-                                <td>" . $row['p_id'] . "</td>";
+                                <td>" . $row['item_id'] . "</td>";
+                        echo "
+                                <td>" . $row['p_name'] . "</td>";
                         echo "
                                 <td>" . $row['p_desc'] . "</td>";
                         echo "
                                 <td>" . $row['c_name'] . "</td>";
                         echo "
                                 <td>" . $row['price'] . "</td>";
+                        echo "
+                                <td>" . $row['stock'] . "</td>";
+                        echo "
+                                <td>" . $row['discount'] . "</td>";
                         echo '
-                                <td style="width: 30%">
+                                <td>
                                     ';
-                        echo '<a href="productupdate.php?product_id=' . $row['p_id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                        echo '<a href="productdelete.php?product_id=' . $row['p_id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                        echo '<a href="additem.php?storeid=' . '1' . '&productid=' . $row['p_id'] . '" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add To Listing</a>';
+                        echo '<a href="deleteitem.php?itemid=' . $row['item_id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                         echo "
                                 </td>";
                         echo "
