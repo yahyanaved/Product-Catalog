@@ -31,6 +31,9 @@
                         <input class="button" type="submit" value="Login" />
                     </form>
                 </div>
+                <?php if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["login"])){?>
+                <h3 style="color:red ;padding: 4%">Username or Password is wrong</h3>
+                    <?php } ?>
             </div>
         </div>
     </div>
