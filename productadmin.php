@@ -69,9 +69,7 @@
                     echo "
                                 <th>Product Description</th>";
                     echo "
-                                <th>Sub Category Name</th>";
-                    echo "
-                                <th>Brand Name </th>";
+                                <th>Category Name</th>";
                     echo "
                                 <th>Price</th>";
                     echo "

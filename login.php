@@ -1,9 +1,10 @@
 <?php
 require 'config.php';
-mysqli_select_db($link,'project');
 $username = $_POST['username'];
 $password = $_POST['password'];
-$sql = "SELECT user_name,passphrase,permission FROM users WHERE user_name='$username'" ;
+
+$sql = "SELECT user_name,passphrase,permission FROM users WHERE user_name='$username';" ;
+echo $sql;
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -22,6 +23,6 @@ else if($username==$data && $password == $data2 && $data3 == 'r')
 }
 else
 {
-    header('location:error.php');
+    header('location:loginpage.php?login=0');
 }
 ?>
