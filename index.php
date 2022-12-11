@@ -17,49 +17,15 @@
     <div class="form_wrapper">
         <div class="form_container">
             <div class="title_container">
-                <h2>Registration Form</h2>
+                <h2>Signup as</h2>
             </div>
             <div class="row clearfix">
                 <div class="">
-                    <form action="signup.php" method="POST">
-                        <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                            <input type="text" name="username" placeholder="Username" required />
-                        </div>
-                        <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                            <input type="password" name="password" placeholder="Password" required />
-                        </div>
-                        <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                            <input type="password" name="password" placeholder="Re-type Password" required />
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                    <input type="text" name="name" placeholder="First Name" />
-                                </div>
-                            </div>
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                    <input type="text" name="name" placeholder="Last Name" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input_field radio_option">
-                            <input type="radio" name="radiogroup1" id="rd1">
-                            <label for="rd1">Male</label>
-                            <input type="radio" name="radiogroup1" id="rd2">
-                            <label for="rd2">Female</label>
-                        </div>
-                        <div class="input_field select_option">
-                            <select>
-                                <option>Select a country</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                            </select>
-                            <div class="select_arrow"></div>
-                        </div>
-
-
-                        <input class="button" type="submit" value="Register" />
+                    <form action="signupbuyer.php">
+                        <input type="submit" value="Buyer">
+                    </form>
+                    <form action="signupseller.php">
+                        <input type="submit" value="Seller">
                     </form>
                     <div class="hint-text">Already have an account? <a href="loginpage.php">Login here</a></div>
 
