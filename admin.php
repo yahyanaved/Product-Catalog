@@ -36,7 +36,7 @@
         <h1 id='dashboard'>Admin Dashboard</h1>
         <div style="padding-left: 20%">
             <a href="productadmin.php" class="btn btn-success "><i class="fa fa-plus"></i> View Products</a>
-            <a href="viewitems.php" class="btn btn-success"><i class="fa fa-plus"></i> View Listed Items</a>
+            <a href="viewitems.php?storeid=1" class="btn btn-success"><i class="fa fa-plus"></i> View Listed Items</a>
         </div>
     </div>
     <div class="wrapper">

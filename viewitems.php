@@ -48,11 +48,15 @@
                     </div>
                     <?php
                     // Include config file
+                    $where = '';
+                    if (isset($_GET['storeid'])) {
+                        $where = "where store_id = " . $_GET['storeid'];
+                    }
                     require_once "config.php";
                     $sql = "SELECT *
                     from items i
                     inner join products p on i.p_id = p.p_id
-                    left join categories c on c.category_id = p.c_id";
+                    left join categories c on c.category_id = p.c_id $where";
                     $result = mysqli_query($link, $sql);
                     // Attempt select query execution
                     echo '<table class="table table-bordered table-striped">

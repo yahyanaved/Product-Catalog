@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
     }
 }
 if ($username == $data && $encrypted_pwd == $data2 && $data3 == 'rw') {
-    header('location:admin.php');
+    header('location:admin.php?storeid=1');
 } else if ($username == $data && $data3 == 'r') {
     header('location:user.php');
 } else {
