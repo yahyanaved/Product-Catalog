@@ -42,7 +42,7 @@ DELIMITER ;
 create table rates(item_id int NOT NULL, cost float NOT NULL);
 alter table rates add constraint rates_pk primary key (item_id);
 alter table rates modify item_id int AUTO_INCREMENT;
-create table users(user_id int, user_name varchar(20), passphrase varchar(20) NOT NULL, permission char(5) NOT NULL DEFAULT 'r',store_id int);
+create table users(user_id int, user_name varchar(20), passphrase varchar(256) NOT NULL, permission char(5) NOT NULL DEFAULT 'r',store_id int);
 alter table users add constraint users_pk primary key (user_id);
 alter table users add constraint users_fk foreign key (store_id) references stores (store_id);
 alter table users modify user_id int AUTO_INCREMENT;
