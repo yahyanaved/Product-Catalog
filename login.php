@@ -18,12 +18,13 @@ if ($result->num_rows > 0) {
         $data = $row["user_name"];
         $data2 = $row["passphrase"];
         $data3 = $row["permission"];
+        $data4 = $row["store_id"];
     }
 }
 if ($username == $data && $encrypted_pwd == $data2 && $data3 == 'rw') {
-    header('location:admin.php?storeid=1');
-} else if ($username == $data && $data3 == 'r') {
-    header('location:user.php');
+    header("location:admin.php?storeid=".$data4);
+} else if ($username == $data  && $encrypted_pwd == $data2 && $data3 == 'r') {
+    header('location:user.php?');
 } else {
     header('location:loginpage.php?login=0');
 }
