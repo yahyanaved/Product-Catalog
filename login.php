@@ -1,9 +1,10 @@
 <?php
 require 'config.php';
-$username = mysqli_real_escape_string($link, $_POST['username']);
-$password = mysqli_real_escape_string($link, $_POST['password']);
+$username = $_POST['username'];
+$password = $_POST['password'];
 
 $sql = "SELECT user_name,passphrase,permission FROM users WHERE user_name='$username';" ;
+echo $sql;
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
