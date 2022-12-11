@@ -71,7 +71,7 @@ require_once "config.php";
             <div class="col-lg-6 col-6 text-left">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products" name = "searchquery">
+                        <input type="text" class="form-control" placeholder="Search for products" name="searchquery">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <button class="fa fa-search"></button>
@@ -81,14 +81,6 @@ require_once "config.php";
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
-                <a href="" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
             </div>
         </div>
         <div class="container-fluid mb-5">
@@ -127,22 +119,11 @@ require_once "config.php";
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="index.php" class="nav-item nav-link active">Home</a>
-                                <a href="shop.html" class="nav-item nav-link">Shop</a>
-                                <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                                 <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                        <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                    </div>
+                                    <a href="contact.html" class="nav-item nav-link">Contact</a>
                                 </div>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
+
                             </div>
-                            <div class="navbar-nav ml-auto py-0">
-                                <a href="" class="nav-item nav-link">Login</a>
-                                <a href="" class="nav-item nav-link">Register</a>
-                            </div>
-                        </div>
                     </nav>
                     <!-- Products Start -->
                     <div class="container-fluid pt-5">
@@ -155,17 +136,17 @@ require_once "config.php";
                             $where = '';
                             $AND = '';
                             $category = '';
-                            if(isset($_GET['categoryid']) || isset($_POST['searchquery'])){
+                            if (isset($_GET['categoryid']) || isset($_POST['searchquery'])) {
                                 $where = 'where';
                             }
-                            if(isset($_GET['categoryid']) && isset($_POST['searchquery'])){
+                            if (isset($_GET['categoryid']) && isset($_POST['searchquery'])) {
                                 $AND = 'AND';
                             }
-                            if(isset($_GET['categoryid'])){
+                            if (isset($_GET['categoryid'])) {
                                 $categoryid = $_GET['categoryid'];
                                 $category = "c.category_id = $categoryid";
                             }
-                            if(isset($_POST['searchquery'])){
+                            if (isset($_POST['searchquery'])) {
                                 $like = $_POST['searchquery'];
                                 $searchquery = "p_name LIKE '$like' OR s_name LIKE '$like'";
                             }
@@ -189,7 +170,9 @@ require_once "config.php";
                                             <?php echo $row['p_name'] ?>
                                         </h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6><?php echo ((1-($row['discount']/100)) * $row['price']);?></h6>
+                                            <h6>
+                                                <?php echo ((1 - ($row['discount'] / 100)) * $row['price']); ?>
+                                            </h6>
                                             <h6 class="text-muted ml-2"><del>
                                                     <?php echo $row['price'] ?>
                                                 </del></h6>
@@ -197,10 +180,13 @@ require_once "config.php";
                                         <h6>
                                             <?php echo $row['p_desc']; ?>
                                         </h6>
-                                        <h6 style= "color : #D19C97; font-weight: bolder; font-size: large"> Sold by : <?php echo $row['s_name']; ?></h6>
+                                        <h6 style="color : #D19C97; font-weight: bolder; font-size: large"> Sold by :
+                                            <?php echo $row['s_name']; ?>
+                                        </h6>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="detail.php?itemid=<?php echo $row['item_id'];?>" class="btn btn-sm text-dark p-0"><i
+                                        <a href="detail.php?itemid=<?php echo $row['item_id']; ?>"
+                                            class="btn btn-sm text-dark p-0"><i
                                                 class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                                     </div>
                                 </div>

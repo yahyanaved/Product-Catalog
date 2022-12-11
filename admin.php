@@ -41,7 +41,7 @@
             if (isset($_GET['storeid'])) {
                 $storeid = $_GET['storeid'];
             } ?>
-            <a href="viewitems.php?storeid= <?php echo $storeid ?>" class="btn btn-success"><i class="fa fa-plus"></i> View
+            <a href="viewitems.php?storeid=<?php echo $storeid; ?>" class="btn btn-success"><i class="fa fa-plus"></i> View
                 Listed Items</a>
         </div>
     </div>
