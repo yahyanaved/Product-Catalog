@@ -7,7 +7,7 @@
     $store_desc = $_POST['store_desc'];
     $address = $_POST['address'];
     $email = $_POST['email'];
-    $data = "INSERT INTO stores (s_name,address,email,store_desc) values ('$s_name','address','email','store_desc')";
+    $data = "INSERT INTO stores (s_name,address,email,store_desc) values ('$s_name','$address','$email','$store_desc')";
     mysqli_query($link, $data);
     $query = "SELECT store_id from stores where s_name = '{$s_name}'";
     $result = mysqli_query($link, $query);
