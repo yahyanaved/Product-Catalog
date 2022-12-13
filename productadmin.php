@@ -95,7 +95,7 @@
                                 <td style="width: 30%">
                                     ';
                         echo '<a href="productupdate.php?product_id=' . $row['p_id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                        echo '<a href="productdelete.php?product_id=' . $row['p_id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                        echo '<a href="productdelete.php?productid=' . $row['p_id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                         echo '<a href="additem.php?storeid=' . '1' . '&productid=' . $row['p_id'] . '" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add To Listing</a>';
                         echo "
                                 </td>";
